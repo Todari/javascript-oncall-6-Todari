@@ -12,8 +12,8 @@ class Controller {
 
   async start() {
     const monthWeekArray = await this.#readMonthAndWeek();
-    const { weekdayArray, weekendArray } = await this.#readOrders();
-    const createOnCall = new CreateOnCall(monthWeekArray.month, monthWeekArray.week, weekdayArray, weekendArray);
+    const { weekdayOrderArray, weekendOrderArray } = await this.#readOrders();
+    const createOnCall = new CreateOnCall(monthWeekArray.month, monthWeekArray.week, weekdayOrderArray, weekendOrderArray);
   }
 
   async #readMonthAndWeek() {

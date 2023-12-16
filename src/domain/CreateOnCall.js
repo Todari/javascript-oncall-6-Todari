@@ -15,13 +15,16 @@ class CreateOnCall {
     this.#weekdayArray = weekdayArray;
     this.#weekendArray = weekendArray;
     this.#calender = [];
-    this.setDates();
+    this.#setDates();
+
+    this.setWorker();
+
     this.#calender.forEach(el => {
-      el.get();
-    });
+      el.print();
+    })
   }
 
-  setDates() {
+  #setDates() {
     let weekCounter = 0;
     Object.keys(WEEK).forEach(key => {
       if (WEEK[key] === this.#firstWeek) {
@@ -35,6 +38,20 @@ class CreateOnCall {
         weekCounter = 0;
       }
     }
+  }
+
+  setWorker() {
+    let weekdayRemain = [...this.#weekdayArray];
+    let weekendRemain = [...this.#weekendArray];
+    this.#calender.forEach(date => {
+      date.isHoliday() ? date.setWorker(weekendRemain.shift()) : date.setWorker(weekdayRemain.shift());
+      if (weekdayRemain.length === 0) {
+        weekdayRemain.push(...this.#weekdayArray);
+      }
+      if (weekendRemain.length === 0) {
+        weekendRemain = this.#weekendArray;
+      }
+    });
   }
 }
 
