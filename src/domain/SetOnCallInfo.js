@@ -1,7 +1,7 @@
 import REGEXP from '../constant/RegExp.js';
 import SETTING from '../constant/Setting.js';
 import WEEK from '../constant/Week.js';
-import CreateOnCall from '../domain/CreateOnCall.js';
+import CreateOnCall from './CreateOnCall.js';
 import { MonthAndWeekTypeError, OrderTypeError } from '../error/CustomError.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
@@ -18,7 +18,10 @@ class SetOnCallInfo {
       const inputString = await InputView.readMonthAndWeek();
       try {
         this.#validateMonthAndWeek(inputString);
-        return { month: inputString.split(',')[0], week: inputString.split(',')[1] };
+        return {
+          month: inputString.split(',')[0],
+          week: inputString.split(',')[1],
+        };
       } catch (error) {
         OutputView.printErrorMessage(error);
       }
@@ -26,7 +29,7 @@ class SetOnCallInfo {
   }
 
   #validateMonthAndWeek(inputString) {
-    const [month, week] = inputString.split(',');;
+    const [month, week] = inputString.split(',');
     if (!REGEXP.monthAndWeek.test(inputString)) {
       throw new MonthAndWeekTypeError();
     }
@@ -59,7 +62,7 @@ class SetOnCallInfo {
       (!REGEXP.order.test(weekdayInputString) || !REGEXP.order.test(weekendInputString)) ||
       (new Set(weekdayArray).size !== weekdayArray.length || new Set(weekendArray).size !== weekendArray.length) ||
       (!weekdayArray.every(value => weekendArray.includes(value))) ||
-      ((weekdayArray.length < SETTING.minimumCrewNumber || weekdayArray.length > SETTING.maximumCrewNumber) ||(weekendArray.length < SETTING.minimumCrewNumber || weekendArray.length > SETTING.maximumCrewNumber))
+      ((weekdayArray.length < SETTING.minimumCrewNumber || weekdayArray.length > SETTING.maximumCrewNumber) || (weekendArray.length < SETTING.minimumCrewNumber || weekendArray.length > SETTING.maximumCrewNumber))
     ) {
       throw new OrderTypeError();
     }

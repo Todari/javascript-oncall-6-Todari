@@ -1,6 +1,3 @@
-import SETTING from '../constant/Setting.js';
-import WEEK from '../constant/Week.js';
-import OnCallDate from '../model/OnCallDate.js';
 import OutputView from '../view/OutputView.js';
 import Calender from './Calender.js';
 
@@ -38,10 +35,10 @@ class CreateOnCall {
     this.#calender.getDates().forEach(date => {
       if (date.isHoliday()) {
         if (prevWorker === weekendRemain[0]) { weekendRemain = this.#switchRotation(weekendRemain); }
-        date.setWorker(prevWorker = weekendRemain.shift())
+        date.setWorker((prevWorker = weekendRemain.shift()));
       } else {
         if (prevWorker === weekdayRemain[0]) { weekdayRemain = this.#switchRotation(weekdayRemain); }
-        date.setWorker(prevWorker = weekdayRemain.shift())
+        date.setWorker((prevWorker = weekdayRemain.shift()));
       }
     });
   }

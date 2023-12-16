@@ -16,9 +16,7 @@ class Calender {
     for (let i = 1; i < SETTING.days[month] + 1; i += 1) {
       this.#dates.push(new OnCallDate(month, i, Object.keys(WEEK)[weekCounter]));
       weekCounter += 1;
-      if (weekCounter === 7) {
-        weekCounter = 0;
-      }
+      if (weekCounter === 7) { weekCounter = 0; }
     }
   }
 
