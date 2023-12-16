@@ -7,13 +7,18 @@ class CreateOnCall {
   #firstWeek;
   #weekdayArray;
   #weekendArray;
+  #calender;
 
   constructor(month, firstWeek, weekdayArray, weekendArray) {
     this.#month = month;
     this.#firstWeek = firstWeek;
     this.#weekdayArray = weekdayArray;
     this.#weekendArray = weekendArray;
+    this.#calender = [];
     this.setDates();
+    this.#calender.forEach(el => {
+      el.get();
+    });
   }
 
   setDates() {
@@ -24,9 +29,9 @@ class CreateOnCall {
       }
     });
     for (let i = 1; i < SETTING.days[this.#month] + 1; i += 1) {
-      new OncallDate(this.#month, i, Object.keys(WEEK)[weekCounter]);
+      this.#calender.push(new OncallDate(this.#month, i, Object.keys(WEEK)[weekCounter]));
       weekCounter += 1;
-      if (weekCounter === 6) {
+      if (weekCounter === 7) {
         weekCounter = 0;
       }
     }
