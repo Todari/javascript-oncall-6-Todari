@@ -1,6 +1,6 @@
-import WEEK from "../constant/Week.js";
-import SETTING from "../constant/Setting.js";
-import OnCallDate from "../model/OnCallDate.js";
+import WEEK from '../constant/Week.js';
+import SETTING from '../constant/Setting.js';
+import OnCallDate from '../model/OnCallDate.js';
 
 class Calender {
   #dates;
