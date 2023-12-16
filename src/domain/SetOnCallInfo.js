@@ -6,8 +6,8 @@ import { MonthAndWeekTypeError, OrderTypeError } from '../error/CustomError.js';
 import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 
-class Controller {
-  async start() {
+class SetOnCallInfo {
+  async read() {
     const monthWeekArray = await this.#readMonthAndWeek();
     const { weekdayOrderArray, weekendOrderArray } = await this.#readOrders();
     const createOnCall = new CreateOnCall(monthWeekArray.month, monthWeekArray.week, weekdayOrderArray, weekendOrderArray);
@@ -66,4 +66,4 @@ class Controller {
   }
 }
 
-export default Controller;
+export default SetOnCallInfo;

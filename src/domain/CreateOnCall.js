@@ -2,6 +2,7 @@ import SETTING from '../constant/Setting.js';
 import WEEK from '../constant/Week.js';
 import OnCallDate from '../model/OnCallDate.js';
 import OutputView from '../view/OutputView.js';
+import Calender from './Calender.js';
 
 class CreateOnCall {
   #month;
@@ -15,26 +16,10 @@ class CreateOnCall {
     this.#firstWeek = firstWeek;
     this.#weekdayArray = weekdayArray;
     this.#weekendArray = weekendArray;
-    this.#calender = [];
-    this.#setDates();
+    this.#calender = new Calender(this.#firstWeek, this.#month);
+
     this.#setWorker();
     this.#printOnCall();
-  }
-
-  #setDates() {
-    let weekCounter = 0;
-    Object.keys(WEEK).forEach(key => {
-      if (WEEK[key] === this.#firstWeek) {
-        weekCounter = Object.keys(WEEK).indexOf(key);
-      }
-    });
-    for (let i = 1; i < SETTING.days[this.#month] + 1; i += 1) {
-      this.#calender.push(new OnCallDate(this.#month, i, Object.keys(WEEK)[weekCounter]));
-      weekCounter += 1;
-      if (weekCounter === 7) {
-        weekCounter = 0;
-      }
-    }
   }
 
   #workerRotation() {
@@ -50,16 +35,12 @@ class CreateOnCall {
   #setWorker() {
     let prevWorker = '';
     let { weekdayRemain, weekendRemain } = this.#workerRotation();
-    this.#calender.forEach(date => {
+    this.#calender.getDates().forEach(date => {
       if (date.isHoliday()) {
-        if (prevWorker === weekendRemain[0]) {
-          weekendRemain = this.#switchRotation(weekendRemain);
-        }
+        if (prevWorker === weekendRemain[0]) { weekendRemain = this.#switchRotation(weekendRemain); }
         date.setWorker(prevWorker = weekendRemain.shift())
       } else {
-        if (prevWorker === weekdayRemain[0]) {
-          weekdayRemain = this.#switchRotation(weekdayRemain);
-        }
+        if (prevWorker === weekdayRemain[0]) { weekdayRemain = this.#switchRotation(weekdayRemain); }
         date.setWorker(prevWorker = weekdayRemain.shift())
       }
     });
@@ -74,7 +55,7 @@ class CreateOnCall {
 
   #printOnCall() {
     OutputView.printNewLine();
-    this.#calender.forEach(date => {
+    this.#calender.getDates().forEach(date => {
       date.print();
     });
   }

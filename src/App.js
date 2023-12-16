@@ -1,9 +1,9 @@
-import Controller from './controller/Controller.js';
+import SetOnCallInfo from './domain/SetOnCallInfo.js';
 
 class App {
   async run() {
-    const controller = new Controller();
-    await controller.start();
+    const setOnCallInfo = new SetOnCallInfo();
+    await setOnCallInfo.read();
   }
 }
 
