@@ -1,6 +1,6 @@
 import REGEXP from "../constant/RegExp.js";
 import WEEK from "../constant/Week.js";
-import { MonthAndWeekTypeError } from "../error/CustomError.js";
+import { MonthAndWeekTypeError, OrderTypeError } from "../error/CustomError.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 
@@ -10,10 +10,11 @@ class Controller {
   }
 
   async start() {
-    const monthWeekArray = await this.readMonthAndWeek();
+    const monthWeekArray = await this.#readMonthAndWeek();
+    const weekdayArray = await this.#readWeekdayOrder();
   }
 
-  async readMonthAndWeek() {
+  async #readMonthAndWeek() {
     while (true) {
       const inputString = await InputView.readMonthAndWeek();
       try {
@@ -36,6 +37,24 @@ class Controller {
     const weekArray = Object.values(WEEK);
     if (!weekArray.includes(week)) {
       throw new MonthAndWeekTypeError();
+    }
+  }
+
+  async #readWeekdayOrder() {
+    while (true) {
+      const inputString = await InputView.readWeekdayOrder();
+      try {
+        this.#validateOrder(inputString);
+        return inputString.split(',');
+      } catch (error) {
+        OutputView.printErrorMessage(error);
+      }
+    }
+  }
+
+  #validateOrder(inputString) {
+    if (!REGEXP.order.test(inputString)) {
+      throw new OrderTypeError();
     }
   }
 }

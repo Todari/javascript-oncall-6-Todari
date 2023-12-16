@@ -5,6 +5,10 @@ class InputView {
   static async readMonthAndWeek() {
     return await Console.readLineAsync(MESSAGE.readMonthAndWeek);
   }
+
+  static async readWeekdayOrder() {
+    return await Console.readLineAsync(MESSAGE.readWeekdayOrder);
+  }
 }
 
 export default InputView;

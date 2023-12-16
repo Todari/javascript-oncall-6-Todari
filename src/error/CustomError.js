@@ -5,3 +5,8 @@ export class MonthAndWeekTypeError extends Error {
     super(ERROR.monthAndWeekType);
   }
 }
+export class OrderTypeError extends Error {
+  constructor() {
+    super(ERROR.orderType);
+  }
+}
