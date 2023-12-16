@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import MESSAGE from "../constant/Message.js";
-import WEEK from "../constant/Week.js";
+import { Console } from '@woowacourse/mission-utils';
+import MESSAGE from '../constant/Message.js';
+import WEEK from '../constant/Week.js';
 
 class OutputView {
   static printErrorMessage(error) {

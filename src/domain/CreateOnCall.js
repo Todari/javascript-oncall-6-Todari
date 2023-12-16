@@ -40,18 +40,39 @@ class CreateOnCall {
     }
   }
 
+  #workerRotation() {
+    const weekdayRemain = [];
+    const weekendRemain = [];
+    while (weekdayRemain.length < 31) {
+      weekdayRemain.push(...this.#weekdayArray);
+      weekendRemain.push(...this.#weekendArray);
+    }
+    return { weekdayRemain, weekendRemain };
+  }
+
   setWorker() {
-    let weekdayRemain = [...this.#weekdayArray];
-    let weekendRemain = [...this.#weekendArray];
+    let prevWorker = '';
+    let { weekdayRemain, weekendRemain } = this.#workerRotation();
     this.#calender.forEach(date => {
-      date.isHoliday() ? date.setWorker(weekendRemain.shift()) : date.setWorker(weekdayRemain.shift());
-      if (weekdayRemain.length === 0) {
-        weekdayRemain.push(...this.#weekdayArray);
-      }
-      if (weekendRemain.length === 0) {
-        weekendRemain = this.#weekendArray;
+      if (date.isHoliday()) {
+        if (prevWorker === weekendRemain[0]) {
+          weekendRemain = this.#switchRotation(weekendRemain);
+        }
+        date.setWorker(prevWorker = weekendRemain.shift())
+      } else {
+        if (prevWorker === weekdayRemain[0]) {
+          weekdayRemain = this.#switchRotation(weekdayRemain);
+        }
+        date.setWorker(prevWorker = weekdayRemain.shift())
       }
     });
+  }
+
+  #switchRotation(array) {
+    const temp = array[0];
+    array[0] = array[1];
+    array[1] = temp;
+    return array;
   }
 }
 

@@ -1,5 +1,5 @@
-import MESSAGE from "../constant/Message.js";
-import { Console } from "@woowacourse/mission-utils";
+import MESSAGE from '../constant/Message.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class InputView {
   static async readMonthAndWeek() {
