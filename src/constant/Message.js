@@ -5,6 +5,7 @@ const MESSAGE = Object.freeze({
 
   printOnCallDate: (month, date, week, worker) =>
     `${month}월 ${date}일 ${week} ${worker}`,
+  holiday: '(휴일)',
 });
 
 export default MESSAGE;

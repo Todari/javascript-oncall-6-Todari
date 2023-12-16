@@ -1,17 +1,20 @@
-import MESSAGE from '../constant/Message.js';
 import { Console } from '@woowacourse/mission-utils';
+import MESSAGE from '../constant/Message.js';
 
 class InputView {
   static async readMonthAndWeek() {
-    return await Console.readLineAsync(MESSAGE.readMonthAndWeek);
+    const monthAndWeek = await Console.readLineAsync(MESSAGE.readMonthAndWeek);
+    return monthAndWeek;
   }
 
   static async readWeekdayOrder() {
-    return await Console.readLineAsync(MESSAGE.readWeekdayOrder);
+    const weekdayOrder = await Console.readLineAsync(MESSAGE.readWeekdayOrder);
+    return weekdayOrder;
   }
 
   static async readWeekendOrder() {
-    return await Console.readLineAsync(MESSAGE.readWeekendOrder);
+    const weekendOrder = await Console.readLineAsync(MESSAGE.readWeekendOrder);
+    return weekendOrder;
   }
 }
 

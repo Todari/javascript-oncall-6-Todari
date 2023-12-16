@@ -7,7 +7,6 @@ import InputView from '../view/InputView.js';
 import OutputView from '../view/OutputView.js';
 
 class Controller {
-
   async start() {
     const monthWeekArray = await this.#readMonthAndWeek();
     const { weekdayOrderArray, weekendOrderArray } = await this.#readOrders();
@@ -60,7 +59,7 @@ class Controller {
       (!REGEXP.order.test(weekdayInputString) || !REGEXP.order.test(weekendInputString)) ||
       (new Set(weekdayArray).size !== weekdayArray.length || new Set(weekendArray).size !== weekendArray.length) ||
       (!weekdayArray.every(value => weekendArray.includes(value))) ||
-      ((weekdayArray.length < SETTING.minimunCrewNumber || weekdayArray.length > SETTING.maximumCrewNumber) ||(weekendArray.length < SETTING.minimunCrewNumber || weekendArray.length > SETTING.maximumCrewNumber))
+      ((weekdayArray.length < SETTING.minimumCrewNumber || weekdayArray.length > SETTING.maximumCrewNumber) ||(weekendArray.length < SETTING.minimumCrewNumber || weekendArray.length > SETTING.maximumCrewNumber))
     ) {
       throw new OrderTypeError();
     }

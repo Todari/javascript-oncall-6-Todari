@@ -1,6 +1,7 @@
 import SETTING from '../constant/Setting.js';
 import WEEK from '../constant/Week.js';
 import OnCallDate from '../model/OnCallDate.js';
+import OutputView from '../view/OutputView.js';
 
 class CreateOnCall {
   #month;
@@ -16,7 +17,7 @@ class CreateOnCall {
     this.#weekendArray = weekendArray;
     this.#calender = [];
     this.#setDates();
-    this.setWorker();
+    this.#setWorker();
     this.#printOnCall();
   }
 
@@ -46,7 +47,7 @@ class CreateOnCall {
     return { weekdayRemain, weekendRemain };
   }
 
-  setWorker() {
+  #setWorker() {
     let prevWorker = '';
     let { weekdayRemain, weekendRemain } = this.#workerRotation();
     this.#calender.forEach(date => {
@@ -72,6 +73,7 @@ class CreateOnCall {
   }
 
   #printOnCall() {
+    OutputView.printNewLine();
     this.#calender.forEach(date => {
       date.print();
     });

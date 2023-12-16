@@ -1,5 +1,4 @@
 import HOLIDAYS from '../constant/Holidays.js';
-import WEEK from '../constant/Week.js';
 import OutputView from '../view/OutputView.js';
 
 class OnCallDate {
@@ -39,7 +38,13 @@ class OnCallDate {
   }
 
   print() {
-    OutputView.printOnCallDate(this.#month, this.#date, this.#week, this.#isHoliday, this.#worker);
+    OutputView.printOnCallDate(
+      this.#month,
+      this.#date,
+      this.#week,
+      this.#isHoliday,
+      this.#worker,
+    );
   }
 }
 
