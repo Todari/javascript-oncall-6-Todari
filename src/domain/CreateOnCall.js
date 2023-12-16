@@ -1,6 +1,6 @@
-import SETTING from "../constant/Setting.js";
-import WEEK from "../constant/Week.js";
-import OncallDate from "../model/OncallDate.js";
+import SETTING from '../constant/Setting.js';
+import WEEK from '../constant/Week.js';
+import OnCallDate from '../model/OnCallDate.js';
 
 class CreateOnCall {
   #month;
@@ -16,12 +16,8 @@ class CreateOnCall {
     this.#weekendArray = weekendArray;
     this.#calender = [];
     this.#setDates();
-
     this.setWorker();
-
-    this.#calender.forEach(el => {
-      el.print();
-    })
+    this.#printOnCall();
   }
 
   #setDates() {
@@ -32,7 +28,7 @@ class CreateOnCall {
       }
     });
     for (let i = 1; i < SETTING.days[this.#month] + 1; i += 1) {
-      this.#calender.push(new OncallDate(this.#month, i, Object.keys(WEEK)[weekCounter]));
+      this.#calender.push(new OnCallDate(this.#month, i, Object.keys(WEEK)[weekCounter]));
       weekCounter += 1;
       if (weekCounter === 7) {
         weekCounter = 0;
@@ -73,6 +69,12 @@ class CreateOnCall {
     array[0] = array[1];
     array[1] = temp;
     return array;
+  }
+
+  #printOnCall() {
+    this.#calender.forEach(date => {
+      date.print();
+    });
   }
 }
 

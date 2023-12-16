@@ -1,6 +1,6 @@
-import HOLIDAYS from "../constant/Holidays.js";
-import WEEK from "../constant/Week.js";
-import OutputView from "../view/OutputView.js";
+import HOLIDAYS from '../constant/Holidays.js';
+import WEEK from '../constant/Week.js';
+import OutputView from '../view/OutputView.js';
 
 class OnCallDate {
   #month;
@@ -21,7 +21,7 @@ class OnCallDate {
     if (this.#week === 'saturday' || this.#week === 'sunday') {
       this.#isHoliday = true;
     }
-    if (HOLIDAYS[this.#month].includes(this.#date)) {
+    if (HOLIDAYS[this.#month]?.includes(this.#date)) {
       this.#isHoliday = true;
     }
   }
