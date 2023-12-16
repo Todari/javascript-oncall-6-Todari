@@ -9,6 +9,10 @@ class InputView {
   static async readWeekdayOrder() {
     return await Console.readLineAsync(MESSAGE.readWeekdayOrder);
   }
+
+  static async readWeekendOrder() {
+    return await Console.readLineAsync(MESSAGE.readWeekendOrder);
+  }
 }
 
 export default InputView;

@@ -12,6 +12,7 @@ class Controller {
   async start() {
     const monthWeekArray = await this.#readMonthAndWeek();
     const weekdayArray = await this.#readWeekdayOrder();
+    const weekendArray = await this.#readWeekendOrder();
   }
 
   async #readMonthAndWeek() {
@@ -43,6 +44,18 @@ class Controller {
   async #readWeekdayOrder() {
     while (true) {
       const inputString = await InputView.readWeekdayOrder();
+      try {
+        this.#validateOrder(inputString);
+        return inputString.split(',');
+      } catch (error) {
+        OutputView.printErrorMessage(error);
+      }
+    }
+  }
+
+  async #readWeekendOrder() {
+    while (true) {
+      const inputString = await InputView.readWeekendOrder();
       try {
         this.#validateOrder(inputString);
         return inputString.split(',');
