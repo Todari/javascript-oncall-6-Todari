@@ -1,5 +1,6 @@
 import REGEXP from "../constant/RegExp.js";
 import WEEK from "../constant/Week.js";
+import CreateOnCall from "../domain/CreateOnCall.js";
 import { MonthAndWeekTypeError, OrderTypeError } from "../error/CustomError.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
@@ -12,6 +13,7 @@ class Controller {
   async start() {
     const monthWeekArray = await this.#readMonthAndWeek();
     const { weekdayArray, weekendArray } = await this.#readOrders();
+    const createOnCall = new CreateOnCall(monthWeekArray.month, monthWeekArray.week, weekdayArray, weekendArray);
   }
 
   async #readMonthAndWeek() {
