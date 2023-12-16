@@ -11,8 +11,7 @@ class Controller {
 
   async start() {
     const monthWeekArray = await this.#readMonthAndWeek();
-    const weekdayArray = await this.#readWeekdayOrder();
-    const weekendArray = await this.#readWeekendOrder();
+    const { weekdayArray, weekendArray } = await this.#readOrders();
   }
 
   async #readMonthAndWeek() {
@@ -41,32 +40,28 @@ class Controller {
     }
   }
 
-  async #readWeekdayOrder() {
+  async #readOrders() {
     while (true) {
-      const inputString = await InputView.readWeekdayOrder();
+      const weekdayInputString = await InputView.readWeekdayOrder();
+      const weekendInputString = await InputView.readWeekendOrder();
       try {
-        this.#validateOrder(inputString);
-        return inputString.split(',');
+        this.#validateOrders(weekdayInputString, weekendInputString);
+        return { weekdayOrderArray: weekdayInputString.split(','), weekendOrderArray: weekendInputString.split(',') }
       } catch (error) {
         OutputView.printErrorMessage(error);
       }
     }
   }
 
-  async #readWeekendOrder() {
-    while (true) {
-      const inputString = await InputView.readWeekendOrder();
-      try {
-        this.#validateOrder(inputString);
-        return inputString.split(',');
-      } catch (error) {
-        OutputView.printErrorMessage(error);
-      }
-    }
-  }
-
-  #validateOrder(inputString) {
-    if (!REGEXP.order.test(inputString)) {
+  #validateOrders(weekdayInputString, weekendInputString) {
+    const weekdayArray = weekdayInputString.split(',');
+    const weekendArray = weekendInputString.split(',');
+    if (
+      (!REGEXP.order.test(weekdayInputString) || !REGEXP.order.test(weekendInputString)) ||
+      (new Set(weekdayArray).size !== weekdayArray.length || new Set(weekendArray).size !== weekendArray.length) ||
+      (!weekdayArray.every(value => weekendArray.includes(value))) ||
+      ((weekdayArray.length < 5 || weekdayArray.length > 35) || (weekendArray.length < 5 || weekendArray.length > 35))
+    ) {
       throw new OrderTypeError();
     }
   }
